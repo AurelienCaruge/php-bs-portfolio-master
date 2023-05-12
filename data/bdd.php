@@ -6,20 +6,21 @@
 
 // Informations de connexions
 
-define("HOST","localhost");
-define("NAME","portfolio");
-define("USER","root");
-define("PASS","");
+require_once 'connexion.php';
 
-$infos="mysql:dbname=".NAME.";host=".HOST;
-try{
-$connexion=new PDO($infos,USER,PASS);
+function getData(string $table){
+    $requeteSql='SELECT * from '.$table;
+    $resultat = connexion()->query($requeteSql);
+    $statement = $resultat->fetchAll(PDO::FETCH_ASSOC);
+    return $statement;
+}
 
-echo 'connexion réussie';
-}
-catch(PDOException $e){
-printf("Échec de la connexion : %s\n", $e->getMessage());
-exit();
-}
+
+// var_dump($statement);
+
+// foreach($statement as $project){
+//     echo $project['title'].'<br>';
+// }
+
 
 ?>
